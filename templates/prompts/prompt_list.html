@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="min-h-screen bg-slate-950 text-white relative">
+
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(139,92,246,0.12),_transparent_35%),radial-gradient(circle_at_bottom_right,_rgba(6,182,212,0.08),_transparent_35%)] pointer-events-none"></div>
+
+    <div class="relative z-10">
+
+        {% include 'components/navbar.html' %}
+
+        <section class="max-w-7xl mx-auto px-6 py-16">
+
+            <!-- Header -->
+            <div class="mb-12">
+                {% if category %}
+                    <h1 class="text-3xl md:text-5xl font-black">
+                        {{ category.name }} Prompts
+                    </h1>
+
+                {% elif query %}
+                    <h1 class="text-3xl md:text-5xl font-black">
+                        Search Results
+                    </h1>
+
+                    <p class="mt-4 text-slate-400 text-lg">
+                        Results for:
+                        <span class="text-cyan-300">{{ query }}</span>
+                    </p>
+
+                {% else %}
+                    <h1 class="text-3xl md:text-5xl font-black">
+                        Explore AI Prompts
+                    </h1>
+
+                    <p class="mt-4 text-slate-400 text-lg">
+                        Discover premium prompts for creators, developers, students, marketers, and founders.
+                    </p>
+                {% endif %}
+            </div>
+
+            <!-- Search -->
+            <form action="/prompts/search/" method="GET" class="mb-10">
+                <div class="flex gap-4 p-3 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl">
+                    <input
+                        type="text"
+                        name="q"
+                        value="{{ query }}"
+                        placeholder="Search prompts..."
+                        class="flex-1 bg-transparent px-5 py-4 text-white placeholder-slate-400 outline-none"
+                    >
+
+                    <button
+                        type="submit"
+                        class="px-8 py-4 rounded-2xl bg-gradient-to-r from-purple-500 to-cyan-500 text-white font-semibold"
+                    >
+                        Search
+                    </button>
+                </div>
+            </form>
+
+            <!-- Categories -->
+            <div id="categories" class="flex flex-wrap gap-3 mb-12">
+                <a href="/prompts/"
+                   class="px-5 py-2 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 transition text-sm">
+                    All
+                </a>
+
+                {% for cat in categories %}
+                <a href="/prompts/category/{{ cat.slug }}/"
+                   class="px-5 py-2 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 transition text-sm">
+                    {{ cat.name }}
+                </a>
+                {% endfor %}
+            </div>
+
+            <!-- SAME AS HOMEPAGE -->
+            <div class="grid md:grid-cols-3 gap-6 md:p-8">
+
+                {% for prompt in prompts %}
+                <a href="/prompts/{{ prompt.slug }}/"
+                   class="block rounded-3xl border border-white/10 bg-white/5 backdrop-blur-2xl p-6 md:p-8 hover:scale-105 transition duration-300 shadow-2xl">
+
+                    <div class="flex justify-between items-center mb-6">
+                        <span class="px-4 py-2 rounded-full bg-cyan-500/20 text-cyan-200 text-sm">
+                            {{ prompt.category.name }}
+                        </span>
+
+                        <div class="text-slate-400 text-sm">
+                            👁 {{ prompt.views }} | 👍 {{ prompt.upvotes }}
+                        </div>
+                    </div>
+
+                    <h3 class="text-3xl font-bold mb-4 hover:text-cyan-300 transition">
+                        {{ prompt.title|truncatechars:45 }}
+                    </h3>
+
+                    <p class="text-slate-300 leading-relaxed">
+                        {{ prompt.description|truncatechars:100 }}
+                    </p>
+
+                    <button
+                        onclick="event.preventDefault(); copyPrompt(`{{ prompt.prompt_text|escapejs }}`)"
+                        class="mt-8 w-full px-6 py-4 rounded-2xl bg-gradient-to-r from-purple-500 to-cyan-500 text-white font-semibold hover:scale-[1.02] transition"
+                    >
+                        Copy Prompt
+                    </button>
+
+                </a>
+
+                {% empty %}
+                <p class="text-slate-400">No prompts found.</p>
+                {% endfor %}
+
+            </div>
+
+        </section>
+    </div>
+</div>
+{% endblock %}

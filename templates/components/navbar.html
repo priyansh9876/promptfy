@@ -1,0 +1,117 @@
+<nav class="sticky top-0 z-50">
+    <div class="backdrop-blur-2xl bg-slate-950/70 border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 md:px-6 py-4 flex items-center justify-between">
+
+            <!-- Brand -->
+            <a href="/" class="flex items-center gap-3 shrink-0">
+                <div class="w-10 h-10 md:w-12 md:h-12 rounded-2xl bg-gradient-to-br from-purple-500 via-pink-500 to-cyan-400 flex items-center justify-center shadow-2xl shadow-purple-500/30">
+                    <span class="text-white font-black text-lg md:text-xl">P</span>
+                </div>
+
+                <span class="text-2xl md:text-3xl font-black tracking-tight bg-gradient-to-r from-purple-300 via-white to-cyan-300 bg-clip-text text-transparent">
+                    Promptfy
+                </span>
+            </a>
+
+            <!-- Desktop Nav -->
+            <div class="hidden md:flex items-center gap-8 text-slate-300 font-medium">
+                <a href="/" class="hover:text-white transition">Home</a>
+                <a href="/prompts/" class="hover:text-white transition">Explore</a>
+                <a href="/prompts/trending/" class="hover:text-white transition">Trending</a>
+                <a href="/dashboard/" class="hover:text-white transition">Dashboard</a>
+            </div>
+
+            <!-- Desktop Auth -->
+            {% if user.is_authenticated %}
+                <div class="hidden md:flex items-center gap-4 shrink-0">
+
+                    <span class="text-slate-300 text-sm">
+                        Hi, {{ user.username }}
+                    </span>
+
+                    <a href="/prompts/submit/"
+                       class="inline-flex items-center px-5 py-3 rounded-2xl bg-gradient-to-r from-purple-500 to-cyan-500 text-white font-semibold shadow-xl shadow-purple-500/20 hover:scale-105 transition">
+                        Submit
+                    </a>
+
+                    <form action="/accounts/logout/" method="POST">
+                        {% csrf_token %}
+                        <button
+                            type="submit"
+                            class="px-5 py-3 rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 transition text-white">
+                            Logout
+                        </button>
+                    </form>
+
+                </div>
+
+            {% else %}
+                <div class="hidden md:flex items-center gap-4 shrink-0">
+
+                    <a href="/accounts/login/"
+                       class="text-slate-300 hover:text-white transition">
+                        Login
+                    </a>
+
+                    <a href="/accounts/signup/"
+                       class="inline-flex items-center px-6 py-3 rounded-2xl bg-gradient-to-r from-purple-500 to-cyan-500 text-white font-semibold shadow-xl shadow-purple-500/20 hover:scale-105 transition">
+                        Sign Up
+                    </a>
+
+                </div>
+            {% endif %}
+
+            <!-- Mobile Toggle -->
+            <button
+                onclick="toggleMobileMenu()"
+                class="md:hidden p-3 rounded-xl border border-white/10 bg-white/5 text-white"
+            >
+                ☰
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden border-t border-white/10 bg-slate-950/95 backdrop-blur-xl">
+            <div class="px-4 py-5 flex flex-col gap-4">
+
+                <a href="/" class="text-slate-300 hover:text-white transition">Home</a>
+                <a href="/prompts/" class="text-slate-300 hover:text-white transition">Explore</a>
+                <a href="/prompts/trending/" class="text-slate-300 hover:text-white transition">Trending</a>
+
+                {% if user.is_authenticated %}
+
+                    <a href="/dashboard/" class="text-slate-300 hover:text-white transition">
+                        Dashboard
+                    </a>
+
+                    <a href="/prompts/submit/"
+                       class="text-center px-6 py-3 rounded-2xl bg-gradient-to-r from-purple-500 to-cyan-500 text-white font-semibold">
+                        Submit Prompt
+                    </a>
+
+                    <form action="/accounts/logout/" method="POST">
+                        {% csrf_token %}
+                        <button
+                            type="submit"
+                            class="w-full px-6 py-3 rounded-2xl border border-white/10 bg-white/5 text-white">
+                            Logout
+                        </button>
+                    </form>
+
+                {% else %}
+
+                    <a href="/accounts/login/"
+                       class="text-center px-6 py-3 rounded-2xl border border-white/10 bg-white/5 text-white">
+                        Login
+                    </a>
+
+                    <a href="/accounts/signup/"
+                       class="text-center px-6 py-3 rounded-2xl bg-gradient-to-r from-purple-500 to-cyan-500 text-white font-semibold">
+                        Sign Up
+                    </a>
+
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</nav>

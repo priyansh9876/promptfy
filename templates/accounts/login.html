@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="min-h-screen bg-slate-950 flex items-center justify-center px-4">
+
+    <div class="w-full flex justify-center">
+
+        <div class="w-full max-w-[340px] bg-slate-900 border border-white/10 rounded-2xl shadow-2xl p-6">
+
+            <div class="text-center mb-6">
+                <a href="/" class="text-2xl font-black bg-gradient-to-r from-purple-300 via-white to-cyan-300 bg-clip-text text-transparent">
+                    Promptfy
+                </a>
+
+                <h1 class="mt-3 text-xl font-bold text-white">
+                    Welcome Back
+                </h1>
+
+                <p class="mt-1 text-slate-400 text-sm">
+                    Login to access your saved prompts
+                </p>
+            </div>
+
+            {% if form.errors %}
+                <div class="mb-4 rounded-xl border border-red-500/20 bg-red-500/10 p-4">
+                    <p class="text-red-300 text-sm">
+                        Invalid username or password.
+                    </p>
+                </div>
+            {% endif %}
+
+            <form method="POST" class="space-y-4">
+                {% csrf_token %}
+
+                <div>
+                    <label class="block text-sm text-slate-300 mb-1">
+                        Username
+                    </label>
+                    {{ form.username }}
+                </div>
+
+                <div>
+                    <label class="block text-sm text-slate-300 mb-1">
+                        Password
+                    </label>
+                    {{ form.password }}
+                </div>
+
+                <button
+                    type="submit"
+                    class="w-full py-2.5 rounded-xl bg-gradient-to-r from-purple-500 to-cyan-500 text-white font-semibold hover:opacity-90 transition">
+                    Login
+                </button>
+            </form>
+
+            <div class="flex items-center gap-3 my-4">
+                <div class="flex-1 h-px bg-white/10"></div>
+                <span class="text-slate-500 text-xs">OR</span>
+                <div class="flex-1 h-px bg-white/10"></div>
+            </div>
+
+            <a href="/accounts/google/login/"
+               class="block w-full text-center py-2.5 rounded-xl border border-white/10 bg-white text-slate-900 text-sm font-medium hover:bg-slate-100 transition">
+                <span class="inline-flex items-center justify-center gap-2">
+                    <img
+                        src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+                        width="16"
+                        height="16"
+                        alt="Google"
+                    >
+                    Continue with Google
+                </span>
+            </a>
+
+            <p class="mt-5 text-center text-sm text-slate-400">
+                New here?
+                <a href="/accounts/signup/" class="text-cyan-300 hover:text-cyan-200">
+                    Create account
+                </a>
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}

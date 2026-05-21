@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promptfy</title>
+
+    <link rel="stylesheet" href="{% static 'css/dist/styles.css' %}">
+</head>
+<body class="bg-slate-950 text-white">
+
+    <div id="copy-toast"
+         class="fixed top-6 right-6 z-[9999] px-6 py-4 rounded-2xl bg-gradient-to-r from-purple-500 to-cyan-500 text-white font-semibold shadow-2xl opacity-0 pointer-events-none transition duration-300">
+        Prompt copied 🚀
+    </div>
+    {% block content %}
+    {% endblock %}
+
+    <script>
+        function copyPrompt(text) {
+            navigator.clipboard.writeText(text);
+        
+            const toast = document.getElementById('copy-toast');
+        
+            toast.classList.remove('opacity-0');
+            toast.classList.add('opacity-100');
+        
+            setTimeout(() => {
+                toast.classList.remove('opacity-100');
+                toast.classList.add('opacity-0');
+            }, 2000);
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+    </script>
+
+</body>
+</html>

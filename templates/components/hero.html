@@ -1,0 +1,84 @@
+<section class="relative">
+
+    <!-- Background blobs -->
+    <div class="absolute top-20 left-10 w-72 h-72 md:w-96 md:h-96 bg-purple-600/20 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-10 right-10 w-80 h-80 md:w-[28rem] md:h-[28rem] bg-cyan-500/20 rounded-full blur-3xl"></div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-4 md:px-6 pt-14 md:pt-20 pb-12 md:pb-16">
+
+        <div class="text-center max-w-5xl mx-auto">
+
+            <!-- Badge -->
+            <div class="inline-flex px-4 md:px-6 py-2 md:py-3 rounded-full border border-white/10 bg-white/5 backdrop-blur-xl text-xs md:text-sm text-slate-300 mb-8">
+                🚀 Trending AI Prompt Discovery Platform
+            </div>
+
+            <!-- Heading -->
+            <h1 class="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-black leading-tight tracking-tight">
+                Stop guessing.
+                <br>
+                Find prompts that
+                <span class="bg-gradient-to-r from-purple-400 via-pink-300 to-cyan-400 bg-clip-text text-transparent">
+                    actually slap.
+                </span>
+            </h1>
+
+            <!-- Subtitle -->
+            <p class="mt-6 text-sm sm:text-base md:text-xl text-slate-300 max-w-4xl mx-auto leading-relaxed">
+                Viral prompts for creators, coders, marketers, students, founders, and AI power users.
+            </p>
+
+            <!-- Stats -->
+            <div class="mt-8 flex justify-center flex-wrap gap-5 md:gap-12 text-center">
+                <div>
+                    <div class="text-2xl md:text-3xl font-black text-white">{{ total_prompts }}+</div>
+                    <div class="text-slate-400 text-xs md:text-sm uppercase tracking-wider">Prompts</div>
+                </div>
+
+                <div>
+                    <div class="text-2xl md:text-3xl font-black text-cyan-300">{{ total_categories }}+</div>
+                    <div class="text-slate-400 text-xs md:text-sm uppercase tracking-wider">Categories</div>
+                </div>
+
+                <div>
+                    <div class="text-2xl md:text-3xl font-black text-purple-300">{{ total_views }}+</div>
+                    <div class="text-slate-400 text-xs md:text-sm uppercase tracking-wider">Views</div>
+                </div>
+            </div>
+
+            <!-- Search -->
+            <form action="/prompts/search/" method="GET" class="mt-10 max-w-3xl px-2 sm:px-0 mx-auto">
+                <div class="flex flex-col sm:flex-row gap-3 p-3 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-2xl shadow-2xl">
+
+                    <input
+                        type="text"
+                        name="q"
+                        placeholder="Search prompts..."
+                        class="flex-1 bg-transparent px-5 py-4 text-white placeholder-slate-400 outline-none text-base md:text-lg"
+                    >
+
+                    <button
+                        type="submit"
+                        class="px-8 py-4 rounded-2xl bg-gradient-to-r from-purple-500 to-cyan-500 text-white font-semibold hover:scale-105 transition"
+                    >
+                        Search
+                    </button>
+                </div>
+            </form>
+
+            <!-- CTA -->
+            <div class="mt-8 flex justify-center items-center gap-4 flex-wrap">
+                <a href="/prompts/"
+                   class="inline-flex px-8 py-4 rounded-2xl bg-gradient-to-r from-purple-500 to-cyan-500 text-white font-semibold shadow-xl shadow-purple-500/20 hover:scale-105 transition">
+                    Explore Prompts
+                </a>
+
+                <a href="/prompts/trending/"
+                   class="inline-flex px-8 py-4 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl hover:bg-white/10 transition">
+                    Trending Now
+                </a>
+            </div>
+
+        </div>
+    </div>
+</section>
