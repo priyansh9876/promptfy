@@ -15,6 +15,10 @@ ALLOWED_HOSTS = allowed_hosts.split(',')
 csrf_origins = str(config('CSRF_TRUSTED_ORIGINS', default=''))
 CSRF_TRUSTED_ORIGINS = csrf_origins.split(',') if csrf_origins else []
 
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
 # APPS
 INSTALLED_APPS = [
     'django.contrib.admin',
