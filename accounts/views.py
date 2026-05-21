@@ -7,15 +7,19 @@ def signup_view(request):
     if request.user.is_authenticated:
         return redirect('/')
 
-    if request.method == 'POST':
-        form = SignupForm(request.POST)
+    form = SignupForm(request.POST or None)
 
+    if request.method == 'POST':
         if form.is_valid():
             user = form.save()
-            login(request, user)
+
+            login(
+                request,
+                user,
+                backend='django.contrib.auth.backends.ModelBackend'
+            )
+
             return redirect('/')
-    else:
-        form = SignupForm()
 
     return render(request, 'accounts/signup.html', {
         'form': form
