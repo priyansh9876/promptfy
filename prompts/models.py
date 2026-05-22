@@ -9,11 +9,21 @@ class Category(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.name)
+            base_slug = slugify(self.name)
+            slug = base_slug
+            counter = 1
+
+            while Category.objects.filter(slug=slug).exclude(pk=self.pk).exists():
+                slug = f"{base_slug}-{counter}"
+                counter += 1
+
+            self.slug = slug
+
         super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name
+
 
 class Prompt(models.Model):
     category = models.ForeignKey(
@@ -22,7 +32,6 @@ class Prompt(models.Model):
         related_name='prompts'
     )
 
-
     submitted_by = models.ForeignKey(
         User,
         on_delete=models.SET_NULL,
@@ -30,12 +39,13 @@ class Prompt(models.Model):
         blank=True,
         related_name='submitted_prompts'
     )
-    
+
     favorited_by = models.ManyToManyField(
         User,
         blank=True,
         related_name='favorite_prompts'
     )
+
     title = models.CharField(max_length=200)
     slug = models.SlugField(unique=True, blank=True)
     description = models.TextField()
@@ -52,7 +62,16 @@ class Prompt(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.title)
+            base_slug = slugify(self.title)
+            slug = base_slug
+            counter = 1
+
+            while Prompt.objects.filter(slug=slug).exclude(pk=self.pk).exists():
+                slug = f"{base_slug}-{counter}"
+                counter += 1
+
+            self.slug = slug
+
         super().save(*args, **kwargs)
 
     def __str__(self):
